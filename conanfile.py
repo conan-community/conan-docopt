@@ -5,15 +5,15 @@ class DocoptConan(ConanFile):
     name = "docopt"
     version = "0.6.2"
     license = "MIT and Boost"
-    url = "https://github.com/docopt/docopt.cpp"
+    url = "https://github.com/conan-community/conan-docopt"
+    homepage = "https://github.com/docopt/docopt.cpp"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake"
 
     def source(self):
-        # https://github.com/docopt/docopt.cpp/archive/v0.6.2.zip
-        tools.get("%s/archive/v%s.zip" % (self.url, self.version))
+        tools.get("%s/archive/v%s.zip" % (self.homepage, self.version))
         os.rename("docopt.cpp-%s" % self.version, "sources")
         tools.replace_in_file("sources/CMakeLists.txt", "include(GNUInstallDirs)", """include(GNUInstallDirs)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
