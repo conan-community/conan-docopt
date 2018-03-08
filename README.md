@@ -3,6 +3,7 @@
 ![conan-docopt image](/images/conan-docopt.png)
 
 [![Download](https://api.bintray.com/packages/conan-community/conan/docopt%3Aconan/images/download.svg)](https://bintray.com/conan-community/conan/docopt%3Aconan/_latestVersion)
+[![Build Status](https://travis-ci.org/conan-community/conan-docopt.svg?branch=stable%2F0.6.2)](https://travis-ci.org/conan-community/conan-docopt)
 [![Build status](https://ci.appveyor.com/api/projects/status/w17p9fl5480uaodx/branch/stable/0.6.2?svg=true)](https://ci.appveyor.com/project/danimtb/conan-docopt/branch/stable/0.6.2)
 
 [Conan.io](https://conan.io) package for [docopt](https://bitbucket.org/docopt/docopt) project
