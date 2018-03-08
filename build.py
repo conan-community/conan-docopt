@@ -31,5 +31,5 @@ if __name__ == "__main__":
         upload=upload_remote,
         remotes=upload_remote)
 
-    builder.add_common_builds(pure_c=False)
+    builder.add_common_builds(pure_c=False, shared_option_name="docopt:shared", dll_with_static_runtime=True)
     builder.run()
