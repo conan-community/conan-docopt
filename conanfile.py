@@ -36,7 +36,4 @@ conan_basic_setup()
         self.copy("*docopt*.a", "lib", keep_path=False)
 
     def package_info(self):
-        if self.options.shared:
-            self.cpp_info.libs = ["docopt"]
-        else:
-            self.cpp_info.libs = ["docopt_s"]
+        self.cpp_info.libs = ["docopt"]
