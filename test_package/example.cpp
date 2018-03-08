@@ -1,6 +1,8 @@
 #include "docopt.h"
 
 #include <iostream>
+#include <string>
+#include <map>
 
 static const char USAGE[] =
 R"(Naval Fate.
@@ -23,13 +25,14 @@ R"(Naval Fate.
 
 int main(int argc, const char** argv)
 {
-    std::map<std::string, docopt::value> args
-        = docopt::docopt(USAGE,
-                         { argv + 1, argv + argc },
-                         true,               // show help if requested
-                         "Naval Fate 2.0");  // version string
+    std::map<std::string, docopt::value> args;
+    args = docopt::docopt(USAGE,
+                          {argv + 1, argv + argc},
+                          true,               // show help if requested
+                          "Naval Fate 2.0");  // version string
 
-    for(auto const& arg : args) {
+    for(auto const& arg : args)
+    {
         std::cout << arg.first <<  arg.second << std::endl;
     }
 

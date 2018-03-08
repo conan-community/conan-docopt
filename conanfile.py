@@ -29,11 +29,16 @@ conan_basic_setup()
         self.copy("docopt.h", "include", "sources")
         self.copy("docopt_value.h", "include", "sources")
         self.copy("docopt_util.h", "include", "sources")
-        self.copy("*docopt_s.lib", "lib", keep_path=False)
-        self.copy("*docopt*.lib", "lib", keep_path=False)
-        self.copy("*docopt*.dll", "bin", keep_path=False)
-        self.copy("*docopt*.so", "lib", keep_path=False)
         self.copy("*docopt*.a", "lib", keep_path=False)
+        self.copy("*docopt*.dll", "bin", keep_path=False)
+        if self.options.shared:
+            self.copy("*docopt.lib", "lib", keep_path=False)
+            self.copy("*docopt*.so", "lib", keep_path=False)
+            self.copy("*docopt*.dylib", "lib", keep_path=False)
+        else:
+            self.copy("*docopt_s.lib", "lib", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["docopt"]
+        self.cpp_info.libs = tools.collect_libs(self)
+        if "objects" in self.cpp_info.libs:
+            self.cpp_info.libs.remove("objects")
