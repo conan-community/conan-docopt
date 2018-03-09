@@ -3,7 +3,7 @@ import os
 
 
 class DocoptTestConan(ConanFile):
-    settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "compiler", "build_type", "arch", "cppstd"
     generators = "cmake"
 
     def build(self):
@@ -12,8 +12,8 @@ class DocoptTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.dll", "bin", "bin")
-        self.copy("*.dylib", "bin", "lib")
+        self.copy(pattern="*.dll", src="bin", dst="bin")
+        self.copy(pattern="*.dylib", src="lib", dst="bin")
 
     def test(self):
         bin_path = os.path.join("bin", "example")
