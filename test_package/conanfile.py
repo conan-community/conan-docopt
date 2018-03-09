@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake
+from conans import ConanFile, CMake, tools
 import os
 
 
@@ -23,5 +23,5 @@ class DocoptTestConan(ConanFile):
         self.copy(pattern="*.dylib", src="lib", dst="bin")
 
     def test(self):
-        bin_path = os.path.join("bin", "example")
-        self.run(bin_path + " --help")
+        with tools.chdir("bin"):
+            self.run(".%sexample --help", os.sep)
