@@ -24,6 +24,11 @@ conan_basic_setup()
     def configure(self):
         if self.settings.cppstd == 98 or self.settings.cppstd == "gnu98":
             raise "docopt needs C++11 at least"
+        if not self.settings.cppstd:
+            if self.settings.os == "Windows":
+                self.settings.cppstd = 11
+            else:
+                self.settings.cppstd = "gnu11"
 
     def build(self):
         cmake = CMake(self)
