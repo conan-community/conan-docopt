@@ -24,4 +24,4 @@ class DocoptTestConan(ConanFile):
 
     def test(self):
         with tools.chdir("bin"):
-            self.run(".%sexample --help", os.sep)
+            self.run(".%sexample --help" % os.sep)
