@@ -1,5 +1,5 @@
-from conans import ConanFile, CMake, tools
 import os
+from conans import ConanFile, CMake, tools
 
 class DocoptConan(ConanFile):
     name = "docopt"
@@ -8,7 +8,7 @@ class DocoptConan(ConanFile):
     license = "MIT and Boost"
     url = "https://github.com/conan-community/conan-docopt"
     homepage = "https://github.com/docopt/docopt.cpp"
-    settings = "os", "compiler", "build_type", "arch", "cppstd"
+    settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake"
@@ -20,15 +20,6 @@ class DocoptConan(ConanFile):
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 """)
-
-    def configure(self):
-        if self.settings.cppstd == 98 or self.settings.cppstd == "gnu98":
-            raise "docopt needs C++11 at least"
-        if not self.settings.cppstd:
-            if self.settings.os == "Windows":
-                self.settings.cppstd = 11
-            else:
-                self.settings.cppstd = "gnu11"
 
     def build(self):
         cmake = CMake(self)

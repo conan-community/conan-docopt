@@ -34,7 +34,7 @@ int main(int argc, const char** argv)
 
     for(auto const& arg : args)
     {
-        std::cout << arg.first <<  arg.second << std::endl;
+        std::cout << arg.first << arg.second << std::endl;
     }
 
     return 0;
