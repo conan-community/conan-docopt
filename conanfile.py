@@ -9,6 +9,7 @@ class DocoptConan(ConanFile):
     url = "https://github.com/conan-community/conan-docopt"
     homepage = "https://github.com/docopt/docopt.cpp"
     settings = "os", "compiler", "build_type", "arch"
+    exports = "LICENSE"
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake"
