@@ -13,23 +13,30 @@ class DocoptConan(ConanFile):
     default_options = "shared=False"
     generators = "cmake"
 
+    @property
+    def source_subfolder(self):
+        return "sources"
+
     def source(self):
         tools.get("%s/archive/v%s.zip" % (self.homepage, self.version))
-        os.rename("docopt.cpp-%s" % self.version, "sources")
-        tools.replace_in_file("sources/CMakeLists.txt", "include(GNUInstallDirs)", """include(GNUInstallDirs)
+        os.rename("docopt.cpp-%s" % self.version, self.source_subfolder)
+        tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder,
+                              "include(GNUInstallDirs)",
+                              """include(GNUInstallDirs)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 """)
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(source_folder="sources")
+        cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
 
     def package(self):
-        self.copy("docopt.h", src="sources", dst="include")
-        self.copy("docopt_value.h", src="sources", dst="include")
-        self.copy("docopt_util.h", src="sources", dst="include")
+        self.copy("*LICENSE*", src=self.source_subfolder, dst="licenses")
+        self.copy("docopt.h", src=self.source_subfolder, dst="include")
+        self.copy("docopt_value.h", src=self.source_subfolder, dst="include")
+        self.copy("docopt_util.h", src=self.source_subfolder, dst="include")
 
         if self.options.shared:
             self.copy("*docopt.lib", dst="lib", keep_path=False) # Windows
