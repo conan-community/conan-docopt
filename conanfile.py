@@ -17,6 +17,12 @@ class DocoptConan(ConanFile):
     def source_subfolder(self):
         return "sources"
 
+    def configure(self):
+        if (self.settings.compiler == "Visual Studio" and
+                self.settings.compiler.version in ["8", "9", "10", "11", "12"]):
+            raise Exception("Visual Studio %s is not able to compile C++11, not supported" %
+                            self.settings.compiler.version)
+
     def source(self):
         tools.get("%s/archive/v%s.zip" % (self.homepage, self.version))
         os.rename("docopt.cpp-%s" % self.version, self.source_subfolder)
