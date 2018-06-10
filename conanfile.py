@@ -10,8 +10,9 @@ class DocoptConan(ConanFile):
     homepage = "https://github.com/docopt/docopt.cpp"
     settings = "os", "compiler", "build_type", "arch"
     exports = "LICENSE"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False],
+               "use_boost_regex": [True, False]}
+    default_options = "shared=False", "use_boost_regex=False"
     generators = "cmake"
 
     @property
@@ -23,6 +24,10 @@ class DocoptConan(ConanFile):
                 self.settings.compiler.version in ["8", "9", "10", "11", "12"]):
             raise Exception("Visual Studio %s is not able to compile C++11, not supported" %
                             self.settings.compiler.version)
+
+    def requirements(self):
+        if self.options.use_boost_regex:
+            self.requires("boost/1.66.0@conan/stable")
 
     def source(self):
         tools.get("%s/archive/v%s.zip" % (self.homepage, self.version))
@@ -36,6 +41,7 @@ conan_basic_setup()
 
     def build(self):
         cmake = CMake(self)
+        cmake.definitions["USE_BOOST_REGEX"] = self.options.use_boost_regex
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
 
