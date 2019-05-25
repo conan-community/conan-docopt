@@ -1,5 +1,6 @@
 import os
 from conans import ConanFile, CMake, tools
+from conans.errors import ConanInvalidConfiguration
 
 class DocoptConan(ConanFile):
     name = "docopt"
@@ -22,7 +23,7 @@ class DocoptConan(ConanFile):
     def configure(self):
         if (self.settings.compiler == "Visual Studio" and
                 self.settings.compiler.version in ["8", "9", "10", "11", "12"]):
-            raise Exception("Visual Studio %s is not able to compile C++11, not supported" %
+            raise ConanInvalidConfiguration("Visual Studio %s is not able to compile C++11, not supported" %
                             self.settings.compiler.version)
 
     def requirements(self):
