@@ -1,6 +1,6 @@
 env:
    global:
-     - CONAN_DOCKER_32_IMAGES: 1
+     - CONAN_BUILD_TYPES: "x86_64"
 linux: &linux
    os: linux
    dist: xenial
